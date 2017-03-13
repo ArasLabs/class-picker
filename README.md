@@ -15,12 +15,14 @@ Release notes/descriptions for the original project posted on the previous Aras 
 
 Release | Notes
 --------|--------
+[v2.0](https://github.com/ArasLabs/class-picker/releases/tag/v2.0) | Includes AML package and informational PDF for 11.0 SP5
 [v1.0](https://github.com/ArasLabs/class-picker/releases/tag/v1.0) | Includes AML package and informational PDF.
 
 #### Supported Aras Versions
 
 Project | Aras
 --------|------
+[v2.0](https://github.com/ArasLabs/class-picker/releases/tag/v2.0) | Aras 11.0 SP5
 [v1.0](https://github.com/ArasLabs/class-picker/releases/tag/v1.0) | Aras 9.x
 
 > ###### *Please note: Aras Community Projects are provided on an "as-is" basis.*

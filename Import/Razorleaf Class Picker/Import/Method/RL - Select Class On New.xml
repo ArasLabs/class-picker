@@ -33,6 +33,7 @@
 //  Rev Date        Modified By      Description
 //  
 //  2012-Aug-01     SDS              Initial creation of the method
+//  2016-Jun-08	    SDS		     Updated to support Innovator 11 SP6
 //
 //***********************************************************
 
@@ -65,15 +66,21 @@ param.aras = top.aras;
 param.dialogType = "classification";
 param.isEditMode = false;
 param.itemTypeName = this.getType();
-param.title = 'New ' + this.getType + ' - Select a classification';
+param.title = 'New ' + this.getType() + ' - Select a classification';
 param.class_structure = class_structure;
 param.item = this;
 param.selectLeafOnly = true;
 param.isRootClassSelectForbidden = true;
+var	options= {
+	dialogWidth: 600,
+	dialogHeight: 700,
+	resizable: true,
+	center: true
+	};
 
 
 //Show the class structure dialog
-var res = showModalDialog(top.aras.getScriptsURL() + "ClassStructureDialog.html", param, 'help:0;resizable:1;status:0;');
+var res = top.aras.modalDialogHelper.show('DefaultModal', window, param, options, "ClassStructureDialog.html");
 
 //Return value (res) description for calling the ClassStructureDialog
    //If the itemtype name is selected in the class structure browser, then res=null
