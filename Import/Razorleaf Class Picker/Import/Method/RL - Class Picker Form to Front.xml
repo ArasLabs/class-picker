@@ -1,0 +1,48 @@
+﻿<AML>
+ <Item type="Method" id="D13DE99FEC5544E09A297D920AB6A58E" action="add">
+  <comments>Razorleaf Class Picker - Method to bring the form to the front</comments>
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[//***********************************************************
+//
+//  Created By/Company:   Razorleaf
+//                        3766 Fishcreek Rd
+//                        Suite 291
+//                        Stow, OH  44224
+//                        (330) 676-0022
+//
+//  Creation Date:        2012-Aug-01
+//
+//  Description:          
+//  
+//        Client side method that is used in conjunctions with the RL - Select Classs On New method to ensure
+//        the form is brought to the foreground after the classification is selected by the user from the 
+//        class structure browser.
+//
+//  Hooks: 
+//        Type: Any form
+//        Event: Form event, OnLoad
+//
+//  Inputs:
+//        None
+//
+//  Outputs:
+//        None
+//
+//  Revisions:
+//  
+//  Rev Date        Modified By      Description
+//  
+//  2012-Aug-01     SDS              Initial creation of the method
+//
+//***********************************************************
+
+//debugger;
+if (document.thisItem.getAction() == "add" && document.thisItem.getProperty("razorleaf_select_class") == "1")
+{
+this.focus();
+}
+]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>RL - Class Picker Form to Front</name>
+ </Item>
+</AML>
