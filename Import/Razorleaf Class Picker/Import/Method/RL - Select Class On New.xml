@@ -32,8 +32,9 @@
 //  
 //  Rev Date        Modified By      Description
 //  
-//  2012-Aug-01     SDS              Initial creation of the method
-//  2016-Jun-08	    SDS		     Updated to support Innovator 11 SP6
+//  2012-Aug-01      SDS            Initial creation of the method
+//  2016-Jun-08      SDS   	      Updated to support Innovator 11 SP6
+//  2019-May-17      SPoe           Updated to support Innovator 11 SP7+
 //
 //***********************************************************
 
@@ -50,7 +51,7 @@ if (this.getAction() != "add")
 var itemTypeName = this.getType();
 if (itemTypeName === '')
 {
-    top.aras.AlertError("An item type must be selected to prior to selecting an item classification.");
+    aras.AlertError("An item type must be selected to prior to selecting an item classification.");
     return false;
 }
 
@@ -59,49 +60,54 @@ if (itemTypeName === '')
 var itemType = top.aras.getItemTypeForClient(this.getAttribute("type"));
 var class_structure = itemType.getProperty("class_structure", "");
 
+// Get Form
+var theItem = this;
 
-//Create and defined parameters to pass to the ClassStructure dialog
-var param = new Object();
-param.aras = top.aras;
-param.dialogType = "classification";
-param.isEditMode = false;
-param.itemTypeName = this.getType();
-param.title = 'New ' + this.getType() + ' - Select a classification';
-param.class_structure = class_structure;
-param.item = this;
-param.selectLeafOnly = true;
-param.isRootClassSelectForbidden = true;
-var	options= {
-	dialogWidth: 600,
-	dialogHeight: 700,
-	resizable: true,
-	center: true
-	};
+//Set Parameters
+var param = {
+    aras: top.aras,
+    dialogType: "classification",
+    isEditMode: false,
+    itemTypeName: this.getType(),
+    title: 'New ' + this.getType() + ' - Select a classification',
+    class_structure: class_structure,
+    item: theItem,
+    selectLeafOnly: true,
+    isRootClassSelectForbidden: true,
+    dialogWidth: 600,
+ 	dialogHeight: 700,
+ 	resizable: true,
+ 	center: true,
+ 	content: "ClassStructureDialog.html"
+};
 
 
-//Show the class structure dialog
-var res = top.aras.modalDialogHelper.show('DefaultModal', window, param, options, "ClassStructureDialog.html");
-
-//Return value (res) description for calling the ClassStructureDialog
-   //If the itemtype name is selected in the class structure browser, then res=null
-   //If the "Clear Selected" button is selected in the class structure browser, then res='' (empty string)
-   //If an item classification is selected from the tree other than the item type, then the leaf class name is return res=Drawing
-
-//Set the selected value on the class structure on the form and apply to the item
-if (res === null || res === '' || res === undefined)
-{
-   //A classification was not selected by the user
-   //Cancel the operation
-   return false;
+function callback(res) {
+	 if (res === null || res === '' || res === undefined)
+    {
+      //A classification was not selected by the user
+      //Cancel the operation
+      return false;
+    }
+    else
+    {
+      //Update the item 
+      theItem.setProperty("classification", res);
+      //Set a flag in the item to denote that a class was selected from this method
+      theItem.setProperty("razorleaf_select_class", "1");
+      
+      //Refresh Form
+      //if main item, refresh; else refresh BOM item
+      if(theItem.getParentItem() === null){
+      aras.uiReShowItem(theItem.getID(), theItem.getID());}
+      else{aras.uiReShowItem(theItem.getParentItem().getID(), theItem.getParentItem().getID());}
+    }
 }
-else
-{
-   //Update the item 
-   this.setProperty("classification", res);
-   //Set a flag in the item to denote that a class was selected from this method
-   this.setProperty("razorleaf_select_class", "1");
-}
-  
+
+// Open the dialog
+var topWnd = top.aras.getMostTopWindowWithAras();
+var wnd = topWnd ? topWnd : window;
+wnd.ArasModules.Dialog.show('iframe', param).promise.then(callback);
 return this;
 ]]></method_code>
   <method_type>JavaScript</method_type>
