@@ -74,15 +74,9 @@ For more information on contributing to this project, another Aras Labs project,
 
 ## Credits
 
-**Project Owner:** Razorleaf
+Orginal Project Written by Dennis Lindinger with Razorleaf.
 
-**Original Idea:** Dennis Lindinger
-
-**Created On:** May 30, 2013
-
-**Contributing** Sam Poe, Aras Labs
-
-**Updated On:** May 17, 2019
+Updated by Sam Poe with Aras Labs.
 
 ## License
 
