@@ -100,12 +100,14 @@ function callback(res) {
       //if main item, refresh; else refresh BOM item
       if(theItem.getParentItem() === null){
       aras.uiReShowItem(theItem.getID(), theItem.getID());}
-      else{aras.uiReShowItem(theItem.getParentItem().getID(), theItem.getParentItem().getID());}
+      else {
+	aras.uiReShowItem(theItem.getParentItem().getID(), theItem.getParentItem().getID());
+	}
     }
 }
 
 // Open the dialog
-var topWnd = top.aras.getMostTopWindowWithAras();
+var topWnd = aras.getMostTopWindowWithAras();
 var wnd = topWnd ? topWnd : window;
 wnd.ArasModules.Dialog.show('iframe', param).promise.then(callback);
 return this;
