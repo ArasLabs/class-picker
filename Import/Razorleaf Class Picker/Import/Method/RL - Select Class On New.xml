@@ -83,14 +83,11 @@ var param = {
 
 
 function callback(res) {
-	 if (res === null || res === '' || res === undefined)
-    {
+    if (res === null || res === '' || res === undefined) {
       //A classification was not selected by the user
       //Cancel the operation
       return false;
-    }
-    else
-    {
+    } else {
       //Update the item 
       theItem.setProperty("classification", res);
       //Set a flag in the item to denote that a class was selected from this method
@@ -98,10 +95,10 @@ function callback(res) {
       
       //Refresh Form
       //if main item, refresh; else refresh BOM item
-      if(theItem.getParentItem() === null){
-      aras.uiReShowItem(theItem.getID(), theItem.getID());}
-      else {
-	aras.uiReShowItem(theItem.getParentItem().getID(), theItem.getParentItem().getID());
+      if (theItem.getParentItem() === null) {
+      aras.uiReShowItem(theItem.getID(), theItem.getID());
+      } else {
+	    aras.uiReShowItem(theItem.getParentItem().getID(), theItem.getParentItem().getID());
 	}
     }
 }
